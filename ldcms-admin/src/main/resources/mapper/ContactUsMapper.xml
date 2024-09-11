@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.ContactUsMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.ContactUsVo" id="ContactUsVoResult">
+    </resultMap>
+
+    <select id="selectListByContactUs" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE state=1
+    </select>
+
+    <select id="selectListById" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE id=#{id} AND state=1
+    </select>
+
+    <select id="selectCountByContactUs" resultType="int">
+        SELECT count(1)
+        FROM contact_us
+        WHERE state = 1
+    </select>
+
+    <select id="selectVagueByMainTitleAndCompany" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE `name` LIKE CONCAT('%', #{name}, '%') AND company LIKE CONCAT('%', #{company}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueCountByMainTitleAndCompany" resultType="int">
+        SELECT count(1)
+        FROM contact_us
+        WHERE `name` LIKE CONCAT('%', #{name}, '%') AND company LIKE CONCAT('%', #{company}, '%') AND state = 1
+    </select>
+
+    <select id="selectListOnSubmittedByContactUs" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE state=2
+    </select>
+
+    <select id="selectListByIdOnSubmitted" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE id=#{id} AND state=2
+    </select>
+
+    <select id="selectCountOnSubmitted" resultType="int">
+        SELECT count(1)
+        FROM contact_us
+        WHERE state=2
+    </select>
+
+    <select id="selectVagueByMainTitleAndCompanyOnSubmitted" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE `name` LIKE CONCAT('%', #{name}, '%') AND company LIKE CONCAT('%', #{company}, '%') AND state = 2
+    </select>
+
+    <select id="selectVagueCountByMainTitleAndCompanyOnSubmitted" resultType="int">
+        SELECT count(1)
+        FROM contact_us
+        WHERE `name` LIKE CONCAT('%', #{name}, '%') AND company LIKE CONCAT('%', #{company}, '%') AND state = 2
+    </select>
+
+    <select id="selectAllStorageToRedisOnSubmitted" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE state=2
+    </select>
+
+    <select id="selectAllStorageToRedis" resultMap="ContactUsVoResult">
+        SELECT id,`name`,phone,email,company,content,creation_date,reply,reply_date,reject_reason,state
+        FROM contact_us
+        WHERE state=1
+    </select>
+
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM contact_us
+        WHERE state = 1
+    </select>
+
+</mapper>

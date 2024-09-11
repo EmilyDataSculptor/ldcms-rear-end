@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.SocialResponsibilityMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.SocialResponsibilityVo" id="SocialResponsibilityVoResult">
+    </resultMap>
+
+    <select id="selectListBySocialResponsibility" resultMap="SocialResponsibilityVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM social_responsibility
+        WHERE state=1
+    </select>
+
+    <select id="selectCountBySocialResponsibility" resultType="int">
+        SELECT count(1)
+        FROM social_responsibility
+        WHERE state = 1
+    </select>
+
+    <select id="selectSocialResponsibilityById" resultMap="SocialResponsibilityVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM social_responsibility
+        WHERE id=#{id} AND state = 1
+    </select>
+
+
+    <select id="selectAllBySocialResponsibility" resultMap="SocialResponsibilityVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM social_responsibility
+        WHERE state = 1
+    </select>
+
+    <select id="selectVagueByMainTitle" resultMap="SocialResponsibilityVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM social_responsibility
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueCountByMainTitle" resultType="int">
+        SELECT count(1)
+        FROM social_responsibility
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+
+    <select id="selectAllStorageToRedis" resultMap="SocialResponsibilityVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM social_responsibility
+        WHERE state = 1
+    </select>
+
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM social_responsibility
+        WHERE state = 1
+    </select>
+
+
+
+</mapper>

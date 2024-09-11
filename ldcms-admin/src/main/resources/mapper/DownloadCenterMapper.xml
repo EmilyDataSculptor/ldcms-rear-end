@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.DownloadCenterMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.DownloadCenterVo" id="DownloadCenterVoResult">
+    </resultMap>
+
+    <select id="selectListByDownloadCenter" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE state=1
+    </select>
+
+    <select id="selectTypeByDownloadCenter" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE state=1 AND type=#{type}
+    </select>
+
+    <select id="selectByDistinctType" resultMap="DownloadCenterVoResult">
+        SELECT DISTINCT type
+        FROM download_center
+        WHERE state = 1
+    </select>
+
+    <select id="selectLAllByDownloadCenter" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE state=1
+    </select>
+
+    <select id="selectDownloadFileById" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE state=1 AND id=#{id}
+    </select>
+
+    <select id="selectCountByDownloadCenter" resultType="int">
+        SELECT count(1)
+        FROM download_center
+        WHERE state = 1
+    </select>
+
+    <select id="selectVagueByMainTitleAndType" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND type LIKE CONCAT('%', #{type}, '%') AND state = 1
+    </select>
+    <select id="selectVagueCountByMainTitleAndType" resultType="int">
+        SELECT count(1)
+        FROM download_center
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND type LIKE CONCAT('%', #{type}, '%') AND state = 1
+    </select>
+    <select id="selectAllStorageToRedis" resultMap="DownloadCenterVoResult">
+        SELECT id,main_title,download_file,type,state
+        FROM download_center
+        WHERE state=1
+    </select>
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM download_center
+        WHERE state = 1
+    </select>
+
+
+</mapper>

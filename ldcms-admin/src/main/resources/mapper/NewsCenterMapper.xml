@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.NewsCenterMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.NewsCenterVo" id="NewsCenterVoResult">
+    </resultMap>
+
+    <select id="selectListByNewsCenter" resultMap="NewsCenterVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM news_center
+        WHERE state=1
+    </select>
+
+    <select id="selectAllByNewsCenter" resultMap="NewsCenterVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM news_center
+        WHERE state=1
+    </select>
+
+    <select id="selectListById" resultMap="NewsCenterVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM news_center
+        WHERE state=1 AND id=#{id}
+    </select>
+
+    <select id="selectCountByNewsCenter" resultType="int">
+        SELECT count(1)
+        FROM news_center
+        WHERE state = 1
+    </select>
+    <select id="selectVagueByMainTitle" resultMap="NewsCenterVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM news_center
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueCountByMainTitle" resultType="int">
+        SELECT count(1)
+        FROM news_center
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+    <select id="selectAllStorageToRedis" resultMap="NewsCenterVoResult">
+        SELECT id,main_title,creation_date,content,picture,state
+        FROM news_center
+        WHERE state=1
+    </select>
+
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM news_center
+        WHERE state = 1
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.UserMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.UserVo" id="UserVoResult">
+    </resultMap>
+
+    <select id="selectByUserNameAndPassword" resultMap="UserVoResult">
+        SELECT id,username,password
+        FROM user
+        WHERE username=#{username} AND password=#{password} AND state=1
+    </select>
+
+    <select id="register" resultType="int">
+        SELECT count(1)
+        FROM user
+        WHERE username=#{username}
+    </select>
+
+    <select id="selectNickNameAndProfilePictureById" resultMap="UserVoResult">
+        SELECT nick_name,profile_picture
+        FROM user
+        WHERE id=#{id}
+    </select>
+
+    <update id="updateByUser" parameterType="org.dromara.web.domain.vo.UserVo">
+        UPDATE user
+        set nick_name=#{nickName},profile_picture=#{profilePicture},personal_profile=#{personalProfile}
+        WHERE id=#{id}
+    </update>
+
+    <select id="selectListById" resultMap="UserVoResult">
+        SELECT id,username,password,nick_name,profile_picture,personal_profile,state
+        FROM user
+        WHERE id=#{id} AND state=1
+    </select>
+
+    <select id="selectStateById" resultMap="UserVoResult">
+        SELECT state
+        FROM user
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectListByIdToRedis" resultMap="UserVoResult">
+        SELECT id,username,password,nick_name,profile_picture,personal_profile,state
+        FROM user
+        WHERE id=#{id} AND state=1
+    </select>
+
+</mapper>

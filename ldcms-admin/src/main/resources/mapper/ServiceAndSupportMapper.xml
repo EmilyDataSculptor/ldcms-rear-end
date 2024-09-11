@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.ServiceAndSupportMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.ServiceAndSupportVo" id="ServiceAndSupportVoResult">
+    </resultMap>
+
+    <select id="selectListByServiceAndSupport" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE state=1
+    </select>
+
+    <select id="selectCityByServiceAndSupport" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE state=1 AND city=#{city}
+    </select>
+
+    <select id="selectByDistinctCity" resultMap="ServiceAndSupportVoResult">
+        SELECT DISTINCT city
+        FROM service_and_support
+        WHERE state = 1
+    </select>
+
+    <select id="selectCountByCity" resultType="int">
+        SELECT count(1)
+        FROM service_and_support
+        WHERE city = #{city} AND state = 1
+    </select>
+
+    <select id="selectCountByServiceAndSupport" resultType="int">
+        SELECT count(1)
+        FROM service_and_support
+        WHERE state = 1
+    </select>
+
+    <select id="selectServiceAndSupportById" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE state=1 AND id=#{id}
+    </select>
+
+    <select id="selectAllByServiceAndSupport" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE state=1
+    </select>
+
+    <select id="selectVagueByMainTitleAndCity" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND city LIKE CONCAT('%', #{city}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueCountByMainTitleAndCity" resultType="int">
+        SELECT count(1)
+        FROM service_and_support
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND city LIKE CONCAT('%', #{city}, '%') AND state = 1
+    </select>
+
+    <select id="selectAllStorageToRedis" resultMap="ServiceAndSupportVoResult">
+        SELECT id,main_title,creation_date,content,picture,city,state
+        FROM service_and_support
+        WHERE state=1
+    </select>
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM service_and_support
+        WHERE state = 1
+    </select>
+</mapper>

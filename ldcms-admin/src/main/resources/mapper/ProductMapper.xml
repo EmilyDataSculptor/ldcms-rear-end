@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.web.mapper.ProductMapper">
+
+    <resultMap type="org.dromara.web.domain.vo.ProductVo" id="ProductVoResult">
+    </resultMap>
+
+    <select id="selectByProduct" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectAllByProduct" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE state = 1
+    </select>
+
+
+    <select id="selectCountByProduct" resultType="int">
+        SELECT count(*)
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectListByColour" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE colour=#{colour} AND state = 1
+    </select>
+
+    <select id="selectListByType" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE type=#{type} AND state = 1
+    </select>
+
+    <select id="selectListByColourAndType" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE colour=#{colour} AND type=#{type} AND state = 1
+    </select>
+
+    <select id="selectListBySeries" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE series=#{series} AND state = 1
+    </select>
+
+    <select id="selectListById" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE id=#{id} AND state = 1
+    </select>
+
+
+    <select id="selectByDistinctColour" resultMap="ProductVoResult">
+        SELECT DISTINCT colour
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectCountByColour" resultType="int">
+        SELECT count(1)
+        FROM product
+        WHERE colour = #{colour} AND state = 1
+    </select>
+
+    <select id="selectByDistinctType" resultMap="ProductVoResult">
+        SELECT DISTINCT type
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectCountByType" resultType="int">
+        SELECT count(1)
+        FROM product
+        WHERE type = #{type} AND state = 1
+    </select>
+
+    <select id="selectAllStorageToRedis" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectCountToRedis" resultType="int">
+        SELECT count(1)
+        FROM product
+        WHERE state = 1
+    </select>
+
+    <select id="selectVagueByMainTitle" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueCountByMainTitle" resultType="int">
+        SELECT COUNT(1)
+        FROM product
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%') AND state = 1
+    </select>
+
+    <select id="selectVagueByProduct" resultMap="ProductVoResult">
+        SELECT id,main_title,sub_title,content,index_picture,product_details,picture,colour,type,series,state
+        FROM product
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%')
+                AND colour LIKE CONCAT('%', #{colour}, '%')
+                AND type LIKE CONCAT('%', #{type}, '%')
+                AND series LIKE CONCAT('%', #{series}, '%')
+                AND state = 1
+    </select>
+
+    <select id="selectVagueCountByProduct" resultType="int">
+        SELECT COUNT(1)
+        FROM product
+        WHERE main_title LIKE CONCAT('%', #{mainTitle}, '%')
+              AND colour LIKE CONCAT('%', #{colour}, '%')
+              AND type LIKE CONCAT('%', #{type}, '%')
+              AND  series LIKE CONCAT('%', #{series}, '%')
+              AND state = 1
+    </select>
+
+</mapper>
